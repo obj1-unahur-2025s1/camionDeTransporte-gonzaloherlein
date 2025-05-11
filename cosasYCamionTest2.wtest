@@ -1,0 +1,32 @@
+import camion2.*
+import cosas2.*
+
+describe "Test para la segunda parte"{
+    test "Total de Bultos"{
+        arenaAGranel.peso(150)
+        paqueteDeLadrillos.agregarLadrillos(80)
+        embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+        camion.cargar(bumblebee)
+        camion.cargar(arenaAGranel)
+        camion.cargar(bateriaAntiaerea)
+        camion.cargar(embalajeDeSeguridad)
+        assert.equals(7,camion.totalDeBultos())
+    }
+
+    test "Consecuencias de la carga"{
+        arenaAGranel.peso(150)
+        paqueteDeLadrillos.agregarLadrillos(80)
+        embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+        camion.cargar(bumblebee)
+        camion.cargar(arenaAGranel)
+        camion.cargar(bateriaAntiaerea)
+        camion.cargar(embalajeDeSeguridad)
+        camion.cargar(paqueteDeLadrillos)
+        camion.cargar(residuosRadiactivos)
+        assert.that(bumblebee.esRobot())
+        assert.equals(104,paqueteDeLadrillos.cantidadDeLadrillos())
+        assert.equals(100,arenaAGranel.peso())
+        assert.that(bateriaAntiaerea.estaConMisiles())
+        assert.equals(15,residuosRadiactivos.peso())
+    }
+}
