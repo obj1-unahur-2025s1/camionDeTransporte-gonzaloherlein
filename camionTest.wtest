@@ -1,9 +1,93 @@
+import cosas.*
 import camion.*
 
 describe "group of test for camion" {
 
-  test "first test" {
-    assert.that(true)
+  test "Cargar en el camion bumblebee como robot, la arena a granel con 150 kilos, la batería antiaérea con los misiles puestos, y el embalaje de seguridad poniéndole como contenido el paquete de ladrillos con 80 ladrillos" {
+    arenaAGranel.peso(150)
+    paqueteDeLadrillos.agregarLadrillos(80)
+    embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(bateriaAntiaerea)
+    camion.cargar(embalajeDeSeguridad)
+    assert.equals(2410,camion.pesoTotal())
   }
 
+  test "Peso de todas las cosas cargadas en el camion"{
+    arenaAGranel.peso(150)
+    paqueteDeLadrillos.agregarLadrillos(80)
+    embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(bateriaAntiaerea)
+    camion.cargar(embalajeDeSeguridad)
+    assert.equals(1410,camion.pesoTotalDeLasCosasDelCamion())
+  }
+
+  test "Hay alguna cosa que pese 500"{
+    arenaAGranel.peso(150)
+    paqueteDeLadrillos.agregarLadrillos(80)
+    embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(bateriaAntiaerea)
+    camion.cargar(embalajeDeSeguridad)
+    assert.notThat(camion.hayAlgunaCosaQuePese_(500))
+  }
+
+  test "Obtener la pirmer cosa cargada que tenga un nivel de peligrosidad de 100"{
+    arenaAGranel.peso(150)
+    paqueteDeLadrillos.agregarLadrillos(80)
+    embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(bateriaAntiaerea)
+    camion.cargar(embalajeDeSeguridad)
+    assert.equals(bateriaAntiaerea, camion.obtenerLaPrimerCosaQueTengaUnNivelDePeligrosidadDe_(100))
+  }
+
+  test "Obtener todas las cosas que tengan un nivel de peligrosidad mayor a 20"{
+    arenaAGranel.peso(150)
+    paqueteDeLadrillos.agregarLadrillos(80)
+    embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(bateriaAntiaerea)
+    camion.cargar(embalajeDeSeguridad)
+    assert.equals([bumblebee,bateriaAntiaerea], camion.obtenerTodasLasCosasQueTenganUnNivelDePeligrosidadDe_(20))
+  }
+
+  test "Obtener la lista de cosas que superen el nivel de peligrosidad de Bumblebee"{
+    arenaAGranel.peso(150)
+    paqueteDeLadrillos.agregarLadrillos(80)
+    embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(bateriaAntiaerea)
+    camion.cargar(embalajeDeSeguridad)
+    assert.equals([bateriaAntiaerea], camion.obtenerLasCosasQueSuperenLaPeligrosidadDe_(bumblebee))
+  }
+
+  test "El camion no está excedido del peso maximo, que es de 2500kg"{
+    arenaAGranel.peso(150)
+    paqueteDeLadrillos.agregarLadrillos(80)
+    embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(bateriaAntiaerea)
+    camion.cargar(embalajeDeSeguridad)
+    assert.notThat(camion.elCamionEstaExcedidoDelPesoMaximo())
+  }
+
+  test "El camion puede circular en ruta ya que no esta excedido de peso maximo y el nivel de peligrosidad del viaje es de 120"{
+    arenaAGranel.peso(150)
+    paqueteDeLadrillos.agregarLadrillos(80)
+    embalajeDeSeguridad.cambiarObjetoEnvuelto(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(bateriaAntiaerea)
+    camion.cargar(embalajeDeSeguridad)
+    assert.that(camion.elCamionPuedeCircularEnRuta(120))
+  }
 }
